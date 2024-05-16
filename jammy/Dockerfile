@@ -189,6 +189,11 @@ ENV LUA_CPATH="/usr/local/openresty/site/lualib/?.so;/usr/local/openresty/lualib
 COPY nginx.conf /usr/local/openresty/nginx/conf/nginx.conf
 COPY nginx.vh.default.conf /etc/nginx/conf.d/default.conf
 
+RUN luarocks install lua-resty-session 3.10 \
+    && luarocks install lua-resty-openidc \
+    && luarocks install lua-resty-http \
+    && luarocks install lua-resty-jwt
+
 CMD ["/usr/local/openresty/bin/openresty", "-g", "daemon off;"]
 
 # Use SIGQUIT instead of default SIGTERM to cleanly drain requests
