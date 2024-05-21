@@ -194,7 +194,8 @@ RUN luarocks install lua-resty-session 3.10 \
     && luarocks install lua-resty-http \
     && luarocks install lua-resty-jwt
 
-CMD ["/usr/local/openresty/bin/openresty", "-g", "daemon off;"]
+COPY mcri/entrypoint.sh /usr/local/openresty/bin/entrypoint.sh
+CMD [ "/usr/local/openresty/bin/entrypoint.sh" ]
 
 # Use SIGQUIT instead of default SIGTERM to cleanly drain requests
 # See https://github.com/openresty/docker-openresty/blob/master/README.md#tips--pitfalls
